@@ -5,22 +5,23 @@ function pingpong(socket) {
             args = undefined;
         }
 
-        this.emit = function(cb) {
-            var eventName = 'event_' + new Date().getTime();
-            socket.emit(name, eventName, args);
-            socket.on(eventName, cb);
-        }
-
-        this.on = function(cb) {
-            socket.on(name, function(eventName, args) {
-                socket.emit(eventName, cb(args))
-            });
+        var fn = {
+            emit: function(cb) {
+                var eventName = 'event_' + new Date().getTime();
+                socket.emit(name, eventName, args);
+                socket.on(eventName, cb);
+            },
+            on: function(cb) {
+                socket.on(name, function(eventName, args) {
+                    socket.emit(eventName, cb(args))
+                });
+            }
         }
 
         if (!callback) {
-            return this;
+            return fn;
         } else {
-            this.emit(callback);
+            fn.emit(callback);
         }
     };
 
