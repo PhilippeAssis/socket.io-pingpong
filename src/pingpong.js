@@ -6,9 +6,9 @@ function pingpong(socket) {
         }
 
         var fn = {
-            emit: function(cb) {
+            emit: function(ar, cb) {
                 var eventName = 'event_' + new Date().getTime();
-                socket.emit(name, eventName, args);
+                socket.emit(name, eventName, ar);
                 socket.on(eventName, cb);
             },
             on: function(cb) {
@@ -21,7 +21,7 @@ function pingpong(socket) {
         if (!callback) {
             return fn;
         } else {
-            fn.emit(callback);
+            fn.emit(args, callbak);
         }
     };
 

@@ -27,17 +27,18 @@ app.use('/pingpong.js', pingpong());
 io.on('connection', function (socket) {
   var socket = pingpong(socket);
 
-  socket.pingpong('user_name').on(function(){    
-    return 'Philippe';
-  })
+  socket.pp('name').on(function(value) {
+        return value + " Assis"
+    })
 
-  socket.pp('user_name').on(function(){    
+  socket.pp('age').on(function(){    
     return 'Philippe';
   })
 
 });
 ```
-### client.js
+
+### client.html
 
 ```html
 <script src="/socket.io/socket.io.js"></script>
@@ -45,21 +46,16 @@ io.on('connection', function (socket) {
 
 <script type="text/javascript">
 var socket = pingpong(io.connect());
-  //you can use like this:
-  socket.pingpong('user_name', function(data){
-    //data is JSON
-    console.log(data)
-  })
-  //or
-  socket.pp('user_name', function(data){
-    //data is JSON
-    console.log(data)
-  })
-  //or setting emit/on
-  socket.pp('user_name').emit(function(data){
-    //data is JSON
-    console.log(data)
-  })
+  socket.pp('name', 'philippe', function(data) {
+            //data is JSON
+            console.log(data)//Philippe Assis
+        })
+
+  socket.pp('age', function(data) {
+            //data is JSON
+            console.log(data)//Philippe Assis
+        })
+
 
 </script>
 ```
