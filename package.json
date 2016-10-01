@@ -1,6 +1,6 @@
 {
   "name": "socket.io-pingpong",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Shortcut to on and emit. Pingpong as you receive the event and returns in the same role",
   "main": "src/pingpong.js",
   "scripts": {
