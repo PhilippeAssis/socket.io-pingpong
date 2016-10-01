@@ -18,7 +18,9 @@ With socket "emit" I requested and received the data and then to "emit". I decid
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
-var pingpong = require('socket.io-pingpong')(server);
+var pingpong = require('socket.io-pingpong');
+
+server.listen(8888); // you port
 
 app.use('/pingpong.js', pingpong());
 
@@ -43,16 +45,17 @@ io.on('connection', function (socket) {
 
 <script type="text/javascript">
 var socket = pingpong(io.connect());
+  //you can use like this:
   socket.pingpong('user_name', function(data){
     //data is JSON
     console.log(data)
   })
-
+  //or
   socket.pp('user_name', function(data){
     //data is JSON
     console.log(data)
   })
-
+  //or setting emit/on
   socket.pp('user_name').emit(function(data){
     //data is JSON
     console.log(data)
