@@ -12,7 +12,7 @@ With socket "emit" I requested and received the data and then to "emit". I decid
 
 ## Features
 
-You can use ping pong or pp to char the methods
+You can use ping pong or pp to call the methods
 
 - **emit(name, args, callback)** Same socket.emit, but returns a given value on the server callback
 - **on(name, callback)** socket.on the same as, but performs emit passing to the callback
