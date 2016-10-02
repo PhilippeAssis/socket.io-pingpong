@@ -1,29 +1,17 @@
 function pingpong(socket) {
-    socket.pingpong = function(name, args, callback) {
-        if (typeof args == 'function') {
-            callback = args;
-            args = undefined;
-        }
+    socket.pingpong = {
+        emit: function(name, args, callback) {
+            var eventName = 'event_' + new Date().getTime();
 
-        var fn = {
-            emit: function(ar, cb) {
-                var eventName = 'event_' + new Date().getTime();
-                socket.emit(name, eventName, ar);
-                socket.on(eventName, cb);
-            },
-            on: function(cb) {
-                socket.on(name, function(eventName, args) {
-                    socket.emit(eventName, cb(args))
-                });
-            }
+            socket.emit(name, eventName, args);
+            socket.on(eventName, callback);
+        },
+        on: function(name, callback) {
+            socket.on(name, function(eventName, args) {
+                socket.emit(eventName, callback(args))
+            });
         }
-
-        if (!callback) {
-            return fn;
-        } else {
-            fn.emit(args, callbak);
-        }
-    };
+    }
 
     socket.pp = socket.pingpong;
 

@@ -10,6 +10,13 @@ With socket "emit" I requested and received the data and then to "emit". I decid
 
 `npm install --save socket.io-pingpong`
 
+## Features
+
+You can use ping pong or pp to char the methods
+
+- **emit(name, args, callback)** Same socket.emit, but returns a given value on the server callback
+- **on(name, callback)** socket.on the same as, but performs emit passing to the callback
+
 ## Example
 
 ### server.js
@@ -24,16 +31,16 @@ server.listen(8888); // you port
 
 app.use('/pingpong.js', pingpong());
 
-io.on('connection', function (socket) {
-  var socket = pingpong(socket);
+io.on('connection', function(socket) {
+    var socket = pingpong(socket);
 
-  socket.pp('name').on(function(value) {
-        return value + " Assis"
+    socket.pp.on('name', function(value) {
+        return value + " Assis";
     })
 
-  socket.pp('age').on(function(){    
-    return 'Philippe';
-  })
+    socket.pp.emit('age', 27, function(age) {
+        console.log('age:', age);
+    })
 
 });
 ```
@@ -45,17 +52,16 @@ io.on('connection', function (socket) {
 <script src="/pingpong.js"></script>
 
 <script type="text/javascript">
-var socket = pingpong(io.connect());
-  socket.pp('name', 'philippe', function(data) {
-            //data is JSON
-            console.log(data)//Philippe Assis
-        })
+    var socket = pingpong(io.connect());
 
-  socket.pp('age', function(data) {
-            //data is JSON
-            console.log(data)//Philippe Assis
-        })
+    socket.pp.emit('name', 'philippe', function(name) {
+        console.log('name:', name)
+    })
 
+
+    socket.pp.on('age', function(data) {
+        return ++data
+    })
 
 </script>
 ```
