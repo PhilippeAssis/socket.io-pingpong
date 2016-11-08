@@ -17,3 +17,20 @@ function pingpong(socket) {
 
     return socket;
 }
+
+module.exports = function(socket, min) {
+    if (socket) {
+        return pingpong(socket);
+    }
+    else {
+        var router = require('express').Router()
+
+        router.get('/pingpong.js', function(req, res, next) {
+            res.send(pingpong.toString());
+            next();
+        })
+        
+        return router
+
+    }
+};

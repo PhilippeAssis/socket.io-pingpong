@@ -1,10 +1,10 @@
 {
   "name": "socket.io-pingpong",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shortcut to on and emit. Pingpong as you receive the event and returns in the same role",
-  "main": "src/pingpong.js",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test.js"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,11 @@
   "bugs": {
     "url": "https://github.com/PhilippeAssis/socket.io-pingpong/issues"
   },
-  "homepage": "https://github.com/PhilippeAssis/socket.io-pingpong#readme"
+  "homepage": "https://github.com/PhilippeAssis/socket.io-pingpong#readme",
+  "devDependencies": {
+    "express": "^4.14.0",
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0",
+    "socket.io": "^1.5.1"
+  }
 }

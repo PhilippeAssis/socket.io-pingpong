@@ -1,0 +1,57 @@
+<head>
+    <title>socket.io-pingpong Test</title>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/pingpong.js"></script>
+
+
+    <script type="text/javascript">
+        function start() {
+            var socket = pingpong(io.connect());
+
+            socket.pp.emit('name', 'philippe', function(name) {
+                console.log('name:', name)
+                document.querySelector('#name').innerHTML = name
+            })
+
+
+            socket.pp.on('age', function(data) {
+                return ++data
+            })
+        }
+    </script>
+    <style type="text/css">
+        body {
+            max-width: 600px;
+        }
+        
+        h1,
+        button,
+        p {
+            font-size: 1.5em;
+            text-align: center
+        }
+    </style>
+</head>
+
+<body>
+    <h1>socket.io-pingpong Test</h1>
+
+    <pre>
+        <code>
+            socket.pp.emit('name', 'philippe', function(name) {
+                console.log('name:', name)
+                document.querySelector('#name').innerHTML = name
+            })
+
+
+            socket.pp.on('age', function(data) {
+                return ++data
+            })
+        </code>
+    </pre>
+
+    <p><button onclick="start()">Start!</button></p>
+    <p>Name: <span id="name"></span></p>
+
+</body>
