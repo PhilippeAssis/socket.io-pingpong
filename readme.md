@@ -29,7 +29,7 @@ var pingpong = require('socket.io-pingpong');
 
 server.listen(8888); // you port
 
-app.use('/pingpong.js', pingpong());
+app.use(pingpong());
 
 io.on('connection', function(socket) {
     var socket = pingpong(socket);
